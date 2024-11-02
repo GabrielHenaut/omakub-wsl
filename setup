@@ -3,6 +3,7 @@ sudo apt-get update > /dev/null
 sudo apt-get install -y git > /dev/null
 
 echo "Cloning stable OMAKUB-WSL..."
+echo "Cloning https://github.com/gabrielhenaut/omakub-wsl.git"
 git clone -b stable https://github.com/gabrielhenaut/omakub-wsl.git ~/.local/share/omakub-wsl > /dev/null
 
 source ~/.local/share/omakub-wsl/install.sh
