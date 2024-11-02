@@ -1,5 +1,30 @@
+# Function to get git branch
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+# Force colors
 force_color_prompt=yes
 color_prompt=yes
 
-PS1=$'\uf0a9 '
-PS1="\[\e]0;\w\a\]$PS1"
+# Reset color code
+RESET_COLOR='\[\e[0m\]'
+# Blue for directory
+BLUE='\[\e[38;5;45m\]'
+
+# Green for git branch
+GREEN='\[\e[38;5;83m\]'
+# White for arrow (will be changed to red after error)
+WHITE='\[\e[37m\]'
+
+# Make the prompt change color based on last command's exit status
+# PS1='$(if [ $? = 0 ]; then echo "\[\e[37m\]"; else echo "\[\e[31m\]"; fi) ⫸  '
+# Add working directory (in blue) and git branch (in green)
+# PS1="\[${BLUE}\]\w \[${GREEN}\]\$(parse_git_branch)${RESET_COLOR}${PS1}"
+
+# Using PROMPT_COMMAND ensures the exit status ($?) is checked immediately after each command
+PROMPT_COMMAND='EXIT_STATUS=$?'
+
+# Modified prompt with proper exit status check
+PS1="\[${BLUE}\]\w \[${GREEN}\]\$(parse_git_branch)${RESET_COLOR}"
+PS1+='\[$(if [ ${EXIT_STATUS} -eq 0 ]; then echo "\[\e[38;5;252m\]"; else echo "\[\e[38;5;203m\]"; fi)\] ⫸  '"${WHITE} "

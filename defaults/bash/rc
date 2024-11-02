@@ -1,3 +1,4 @@
 source ~/.local/share/omakub-wsl/defaults/bash/shell
 source ~/.local/share/omakub-wsl/defaults/bash/aliases
 source ~/.local/share/omakub-wsl/defaults/bash/init
+source ~/.local/share/omakub-wsl/defaults/bash/prompt
